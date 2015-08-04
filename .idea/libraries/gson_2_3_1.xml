@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="gson-2.3.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/gson-2.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slf4j-api-1.7.12.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
