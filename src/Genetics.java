@@ -18,7 +18,7 @@ import java.util.*;
 public class Genetics {
 
     // The chance the two deck being bred will swap their cards.
-    private final float DEFAULT_CARD_SWAP_RATE = 0.7f;
+    private final float DEFAULT_CARD_SWAP_RATE = 0.8f;
     private float cardSwapRate;
     // The chance that a card will become another random card.
     private final float DEFAULT_MUTATION_CHANCE = 0.02f;
@@ -65,17 +65,21 @@ public class Genetics {
         while(generation.size() < generationSize){
             generation.add(new RankedDeck(cardCatalog));
         }
+
+
+        System.out.println("-- Initial Population Sample --");
+        System.out.println(generation.get(0).toString());
     }
 
     /**
-     * Evaluates a single generation using the default run count and sorts it from best to worst.
+     * Evaluates a single generation using the default run count for each deck and sorts it from best to worst.
      */
     public void evaluateGeneration(){
         evaluateGeneration(deckRunCount);
     }
 
     /**
-     * Evaluates a generation a sorts it from best to worst.
+     * Evaluates a generation for a specified run count for each deck and sorts it from best to worst.
      * @param runCount The number of times to run each deck.
      */
     public void evaluateGeneration(int runCount){
@@ -111,14 +115,12 @@ public class Genetics {
     /**
      * runForGenerations runs the genetic algorithm a specified number of times, rather than stopping on
      *      a terminating condition.
-     * @param generationCount The number of times to evaluate the current generation and create a new generation.
+     * @param totalGenerations The number of times to evaluate the current generation and create a new generation.
      * @return The best from the final generation.
      */
-    public RankedDeck runForGenerations(int generationCount){
-        System.out.println("-- Initial Population Sample --");
-        System.out.println(generation.get(0).toString());
+    public RankedDeck runForGenerations(int totalGenerations){
 
-        for(int i = 0; i < generationCount; i++) {
+        for(int i = 0; i < totalGenerations; i++) {
             evaluateGeneration();
 
             System.out.println("-- Gen " + generationCount + " --");
@@ -140,9 +142,6 @@ public class Genetics {
     public RankedDeck runForSeconds(int seconds){
         Calendar end = Calendar.getInstance();
         end.add(Calendar.SECOND, seconds);
-
-        System.out.println("-- Initial Population Sample --");
-        System.out.println(generation.get(0).toString());
 
         while(Calendar.getInstance().before(end)){
             evaluateGeneration();
@@ -223,10 +222,10 @@ public class Genetics {
     }
 
     /**
-     * Gets a random integer in the range of 0 - max, skewed left towards 0.
+     * Gets a random integer in the range of (0, max-1), skewed left towards 0.
      *
      * @param max The maximum integer that the function will return.
-     * @return A random int from 0 to max.
+     * @return A random int from 0 to max - 1.
      */
     private int getSkewedInt(int max){
 
@@ -239,7 +238,10 @@ public class Genetics {
         return ret % max;
     }
 
-    public void testSkewedInt(){
+    /**
+     * Prints all of the results of skewedInt, to check the distribution.
+     */
+    public void printSkewedInt(){
         HashMap<Integer, Integer> map = new HashMap<>();
 
         for(int i = 0; i < 100000; i++){

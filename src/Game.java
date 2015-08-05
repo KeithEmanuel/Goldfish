@@ -11,6 +11,9 @@ import java.util.stream.Collectors;
   *
   * Currently, mana produced in a turn is equal to the count of lands. So, any land will produce one mana of any color.
   * This is because of two things: It is faster, and it currently makes no difference in the program execution.
+  *
+  * The debug calls to toString() can be expensive, so they are currently commented out.
+  * todo: implement a better debug system
   */
 public class Game {
     final private static Logger log = LoggerFactory.getLogger(Game.class);
@@ -169,13 +172,12 @@ public class Game {
 
         Set<PossiblePlay> possiblePlays = constructPossiblePlays(new PossiblePlay(nonlands));
 
-        //debug(possiblePlays.toString());
 
         possiblePlays = possiblePlays.stream()
                 .filter((p) -> p.getTotalCost() <= player.mana)
                 .collect(Collectors.toSet());
 
-        //debug(possiblePlays.toString());
+        //debug("Possible plays: " + possiblePlays.toString());
 
         int totalCreatureAttack = 0;
 
