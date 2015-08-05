@@ -7,8 +7,8 @@ public class Main {
         // Add new cards to CardCatalog.allCards
 
         /***** Pick one! *****/
-        //testAllCards();
-        testBoringCards();
+        testAllCards();
+        //testBoringCards();
         //playTestGame();
 
         System.out.println("Finished in " + (float) (System.currentTimeMillis() - startTime) / 60000.0 + " minutes.");
