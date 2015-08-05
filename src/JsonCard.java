@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.IOException;
 
 // todo - switch to json import of cards
+
+/*
 public class JsonCard {
 
     private static Gson gson;
@@ -27,3 +29,4 @@ public class JsonCard {
         }
     }
 }
+*/
