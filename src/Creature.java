@@ -42,12 +42,38 @@ public class Creature extends Card {
      * @param cost The card's converted mana cost
      * @param attack The card's attack
      * @param defense The card's defense
+     * @param ability A single creature ability
+     */
+    public Creature(String name, int cost, int attack, int defense, Ability ability){
+        super(CardType.Creature);
+
+        this.abilities = new ArrayList<>();
+        this.abilities.add(ability);
+        this.name = name;
+        this.cost = cost;
+        this.attack = attack;
+        this.defense = defense;
+        this.tapped = false;
+        this.summoningSick = !hasAbility(Ability.Haste);
+    }
+
+    /**
+     * Creates a new Creature with abilities
+     * @param name The card's name
+     * @param cost The card's converted mana cost
+     * @param attack The card's attack
+     * @param defense The card's defense
      * @param abilities A Collection of the creature's abilities
      */
 	public Creature(String name, int cost, int attack, int defense, Collection<Ability> abilities){
         super(CardType.Creature);
 
-        this.abilities = new ArrayList<>(abilities);
+        if(abilities == null){
+            this.abilities = new ArrayList<>();
+        }
+        else{
+            this.abilities = new ArrayList<>(abilities);
+        }
 		this.name = name;
 		this.cost = cost;
 		this.attack = attack;
@@ -78,11 +104,7 @@ public class Creature extends Card {
      * @return True if the creature has the ability, otherwise false
      */
     public boolean hasAbility(Ability ability){
-        if(abilities.contains(ability)){
-            return true;
-        }
-
-        return false;
+        return abilities.contains(ability);
     }
 
     /**

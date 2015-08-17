@@ -1,4 +1,3 @@
-
 public class Main {
     public static void main(String[] args) {
 
@@ -10,6 +9,7 @@ public class Main {
         testAllCards();
         //testBoringCards();
         //playTestGame();
+        //test();
 
         System.out.println("Finished in " + (float) (System.currentTimeMillis() - startTime) / 60000.0 + " minutes.");
     }
@@ -19,7 +19,7 @@ public class Main {
      * Prints the best deck of the final generation.
      *
      * With the included cards, the best deck should only contain a mix of Mountains, Lighting Bolts, Goblin Guides,
-     * and possibly a few Flame Rifts, although Jackal Pups probably won't all be removed at 100 generations.
+     * and possibly a few Flame Rifts.
      */
     public static void testAllCards(){
         Genetics genetics = new Genetics();
@@ -69,12 +69,25 @@ public class Main {
         CardCatalog catalog = new CardCatalog(new String[]{
                 "Mountain",
                 "Lightning Bolt",
-                "Goblin Guide",
+        //        "Goblin Guide",
                 "Jackal Pup",
         });
 
         Deck deck = new Deck(Deck.Option.Random, catalog);
 
         new Game(deck).playGame();
+    }
+
+    public static void test(){
+        CardCatalog catalog = new CardCatalog(new String[]{
+                "Mountain",
+                "Lightning Bolt",
+                "Goblin Guide",
+                "Jackal Pup",
+        });
+
+        Genetics genetics = new Genetics(catalog);
+
+        genetics.runForGenerations(100);
     }
 }

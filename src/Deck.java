@@ -167,20 +167,6 @@ public class Deck {
     }
 
     /**
-     * reset will revert the deck back to the state that it was in when save() was last called, as well as uptap
-     * each card in the deck.
-     */
-	public void reset(){
-        for(Card c : originalDeck){
-            if(c.tapped){
-                c.tapped = false;
-            }
-        }
-
-		deck = new ArrayList<>(originalDeck);
-	}
-
-    /**
      * Save is used to set the deck this Deck will revert to when reset is called.
      */
 	public void save(){

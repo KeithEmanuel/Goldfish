@@ -19,9 +19,9 @@ public class Player {
 		life = 20;
 		mana = 0;
 		this.deck = deck;
-		hand = new ArrayList<Card>();
-		creatures = new ArrayList<Creature>();
-		lands = new ArrayList<Land>();
+		hand = new ArrayList<>();
+		creatures = new ArrayList<>();
+		lands = new ArrayList<>();
 
 		deck.shuffle();
 		draw(7);
@@ -31,6 +31,8 @@ public class Player {
 	public boolean play(Card card){
 		if(mana >= card.cost) {
 			Game.debug("Played " + card.name + " for " + card.cost + " mana.");
+
+            card.tapped = false;
 
 			hand.remove(card);
 			mana -= card.cost;
@@ -88,11 +90,13 @@ public class Player {
 	}
 
 	private void playCreature(Creature card){
-		creatures.add(card);
+		card.tapped = !card.hasAbility(Creature.Ability.Haste);
+        creatures.add(card);
 	}
 
 	private void playCreature(Creature card, Enemy target){
-		creatures.add(card);
+        card.tapped = !card.hasAbility(Creature.Ability.Haste);
+        creatures.add(card);
 	}
 
 	public void draw(int n){

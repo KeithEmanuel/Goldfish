@@ -1,6 +1,7 @@
  import java.util.*;
 
-import org.slf4j.Logger;
+ import com.sun.deploy.util.StringUtils;
+ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.stream.Collectors;
@@ -37,7 +38,6 @@ public class Game {
       * @param deck The Deck used by the player.
       */
 	public Game(Deck deck){
-        deck.reset();
 		player = new Player("Good", deck.copy());
 		enemy = new Enemy();
 		turn = 0;
@@ -75,9 +75,6 @@ public class Game {
 
 			playTurn();
 		}
-
-        // called to set all the cards to untapped. todo: refactor
-        player.deck.reset();
 
 		return turn;
 	}
@@ -121,10 +118,10 @@ public class Game {
 		player.upkeep();
 
         // commented out for performance
-		//debug("\nTurn " + turn + ":");
-		//debug("Hand: " + player.hand.toString());
-		//debug("Creatures: " + player.creatures.toString());
-		//debug("Lands: " + player.lands.toString());
+		debug("\nTurn " + turn + ":");
+		debug("Hand: " + player.hand.toString());
+		debug("Creatures: " + player.creatures.toString());
+		debug("Lands: " + player.lands.toString());
 	}
 
      /**
@@ -132,7 +129,7 @@ public class Game {
       */
 	private void endOfTurn(){
 		player.endOfTurn();
-		//debug("Enemy health remaining: " + enemy.life);
+		debug("Enemy health remaining: " + enemy.life);
 	}
 
      /**
@@ -140,15 +137,12 @@ public class Game {
       */
 	private void attack(){
 		int damage = 0;
-
-        //List<Creature> attackingCreatures = player.creatures.stream().filter((c) -> c.canAttack()).collect(Collectors.toList());
-
-		//for(Creature creature : attackingCreatures){
+        List<String> attackingCreatures = new ArrayList<>();
 
         for(int i = 0; i < player.creatures.size(); i++){
             if(player.creatures.get(i).canAttack()) {
 
-                //debugplayer.creatures.get(i).name + " is attacking.");
+                attackingCreatures.add(player.creatures.get(i).name);
                 damage += player.creatures.get(i).attack;
                 player.creatures.get(i).tapped = true;
 
@@ -156,7 +150,7 @@ public class Game {
 		}
 
 		enemy.life -= damage;
-		//debug"Attacked for " + damage + " damage.");
+		debug("Attacked with " + StringUtils.join(attackingCreatures, ", ") + " for " + damage + " damage.");
 	}
 
      /**
@@ -177,7 +171,7 @@ public class Game {
                 .filter((p) -> p.getTotalCost() <= player.mana)
                 .collect(Collectors.toSet());
 
-        //debug("Possible plays: " + possiblePlays.toString());
+        debug("Possible plays: " + possiblePlays.toString());
 
         int totalCreatureAttack = 0;
 
