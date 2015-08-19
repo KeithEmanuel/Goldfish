@@ -63,7 +63,7 @@ public class CardCatalog {
 			),
 
             new Creature(
-                    "Great Stable Stag",
+                    "Elephant",
                     3,
                     3,
                     3
@@ -76,7 +76,33 @@ public class CardCatalog {
 					3
 			),
 
+            new Creature(
+                    "1cmc 1/1",
+                    1,
+                    1,
+                    1
+            ),
 
+            new Creature(
+                    "2cmc 2/2",
+                    2,
+                    2,
+                    2
+            ),
+
+            new Creature(
+                    "3cmc 3/3",
+                    3,
+                    3,
+                    3
+            ),
+
+            new Creature(
+                    "4cmc 4/4",
+                    4,
+                    4,
+                    4
+            ),
 
 			/***** Spells *****/
 			new Spell(

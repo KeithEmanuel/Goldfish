@@ -55,7 +55,8 @@ public class Game {
                 .collect(Collectors.toList())
                 .size();
 
-        while (player.hand.size() > 5 && (landsInHand >= 5 || landsInHand <= 1)){
+        while (player.hand.size() > 5 && (landsInHand >= 5 || landsInHand < 1)){
+            //debug("Mulliganning hand: " + player.hand.toString());
             player.mulligan();
             landsInHand = player.hand.stream()
                     .filter((c) -> c.type == Card.CardType.Land)
@@ -63,10 +64,10 @@ public class Game {
                     .size();
         }
 
+        //debug("Kept hand: " + player.hand.toString());
+
         // play till the win
 		while(enemy.life > 0){
-
-			player.deck.shuffle();
 
 			// if the deck sucks, return early
 			if(turn >= 12){
@@ -115,13 +116,23 @@ public class Game {
       */
 	private void upkeep(){
 		turn++;
-		player.upkeep();
 
-        // commented out for performance
-		debug("\nTurn " + turn + ":");
-		debug("Hand: " + player.hand.toString());
-		debug("Creatures: " + player.creatures.toString());
-		debug("Lands: " + player.lands.toString());
+        player.upkeep();
+
+        Card drawnCard = null;
+
+        if(turn > 1) {
+            drawnCard = player.draw();
+        }
+
+        // comment out for performance
+		//debug("\nTurn " + turn + ":");
+        if(drawnCard != null) {
+            //debug("Drew " + drawnCard.name);
+        }
+		//debug("Hand: " + player.hand.toString());
+		//debug("Creatures: " + player.creatures.toString());
+		//debug("Lands: " + player.lands.toString());
 	}
 
      /**
@@ -129,7 +140,7 @@ public class Game {
       */
 	private void endOfTurn(){
 		player.endOfTurn();
-		debug("Enemy health remaining: " + enemy.life);
+		//debug("Enemy health remaining: " + enemy.life);
 	}
 
      /**
@@ -150,7 +161,9 @@ public class Game {
 		}
 
 		enemy.life -= damage;
-		debug("Attacked with " + StringUtils.join(attackingCreatures, ", ") + " for " + damage + " damage.");
+		if(attackingCreatures.size() > 0){
+            //debug("Attacked with " + StringUtils.join(attackingCreatures, ", ") + " for " + damage + " damage.");
+        }
 	}
 
      /**
@@ -171,7 +184,7 @@ public class Game {
                 .filter((p) -> p.getTotalCost() <= player.mana)
                 .collect(Collectors.toSet());
 
-        debug("Possible plays: " + possiblePlays.toString());
+        ////debug("Possible plays: " + possiblePlays.toString());
 
         int totalCreatureAttack = 0;
 

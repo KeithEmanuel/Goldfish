@@ -99,6 +99,16 @@ public class Player {
         creatures.add(card);
 	}
 
+    /**
+     *
+     * @return The card the was drawn.
+     */
+    public Card draw(){
+        Card card = deck.draw();
+        hand.add(card);
+        return card;
+    }
+
 	public void draw(int n){
 		for(int i = 0; i < n && deck.size() > 0; i++) {
 			hand.add(deck.draw());
@@ -106,7 +116,6 @@ public class Player {
 	}
 
     public void upkeep(){
-        draw(1);
 
         for(Creature creature: creatures){
             if(creature.tapped)

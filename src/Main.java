@@ -6,10 +6,10 @@ public class Main {
         // Add new cards to CardCatalog.allCards
 
         /***** Pick one! *****/
-        testAllCards();
+        //testAllCards();
         //testBoringCards();
         //playTestGame();
-        //test();
+        test();
 
         System.out.println("Finished in " + (float) (System.currentTimeMillis() - startTime) / 60000.0 + " minutes.");
     }
@@ -69,8 +69,10 @@ public class Main {
         CardCatalog catalog = new CardCatalog(new String[]{
                 "Mountain",
                 "Lightning Bolt",
-        //        "Goblin Guide",
+                "Goblin Guide",
                 "Jackal Pup",
+                "Grizzly Bears",
+                "Elephant",
         });
 
         Deck deck = new Deck(Deck.Option.Random, catalog);
@@ -80,14 +82,29 @@ public class Main {
 
     public static void test(){
         CardCatalog catalog = new CardCatalog(new String[]{
+                "Mon's Goblin Raiders",
+                "Grizzly Bears",
+                "Elephant",
+                "Shock",
+                "Incinerate",
                 "Mountain",
-                "Lightning Bolt",
                 "Goblin Guide",
+                "Lightning Bolt",
                 "Jackal Pup",
+                "Hill Giant",
+                "Mogg Flunkies",
+                "Flame Rift",
         });
 
         Genetics genetics = new Genetics(catalog);
 
         genetics.runForGenerations(100);
+        genetics.evaluateGeneration(10000);
+
+        System.out.println("The best is:\n");
+        System.out.println(genetics.getGeneration().get(0));
+
+        System.out.println("The worst is:\n");
+        System.out.println(genetics.getGeneration().get(genetics.getGeneration().size() - 1));
     }
 }

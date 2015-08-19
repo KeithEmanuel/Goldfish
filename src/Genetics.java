@@ -126,6 +126,8 @@ public class Genetics {
             System.out.println("-- Gen " + generationCount + " --");
             System.out.println("-- Best deck --");
             System.out.println(generation.get(0).toString());
+            System.out.println("-- Worst deck --");
+            System.out.println(generation.get(generation.size() - 1).toString());
 
             breedNewGeneration();
             ++generationCount;
